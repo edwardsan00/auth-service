@@ -1,18 +1,16 @@
-import express from 'express'
-import morgan from 'morgan'
-import v1 from './v1'
+require('dotenv').config()
+require('./src/datalayer/database/mongodb')
+import app from './app'
 
-const app: express.Application = express()
-const router: express.Router = express.Router()
+const { PORT } = process.env
 
-// middleware
-app.use(morgan('dev'))
-app.use(express.urlencoded({ extended: false }))
-app.use(express.json())
+const main = async () => {
+	try {
+		app.listen(PORT)
+		console.log('App runing in port:', PORT)
+	} catch(e){
+		console.log('Error in server', e)
+	}
+}
 
-//Routes
-app.use('/api/v1', v1)
-
-app.listen(3000, () => {
-	console.log('Corriendo en el puerto 3000')
-})
+main()
