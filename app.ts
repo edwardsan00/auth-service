@@ -2,10 +2,12 @@ import express from 'express'
 import morgan from 'morgan'
 import v1 from './src/v1'
 
-const app: express.Application = express()
+const { NODE_ENV } = process.env
+
+const app = express()
 
 // middleware
-app.use(morgan('dev'))
+NODE_ENV === 'development' ? app.use(morgan('dev')) : app.use(morgan('common'))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 

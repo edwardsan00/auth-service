@@ -3,3 +3,5 @@
 yarn.lock
 package-lock.json
 .env
+server.crt
+server.key
